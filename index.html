@@ -13,7 +13,6 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
@@ -49,15 +48,27 @@
 
         <ul class="list-unstyled components">
           <li class="active">
-            <a href="#">
+            <a href="./index.html">
               <i class="bi bi-house"></i>
               Home
             </a>
           </li>
           <li class="">
-            <a href="#">
-              <i class="bi bi-file-earmark-person"></i>
-              About
+            <a href="./page/edit.html">
+              <i class="bi bi-pencil-square"></i>
+              Edit
+            </a>
+          </li>
+          <li class="">
+            <a href="./page/search.html">
+              <i class="bi bi-search"></i>
+              Search
+            </a>
+          </li>
+          <li class="">
+            <a href="./page/breed.html">
+              <i class="bi bi-list-ul"></i>
+              Breed
             </a>
           </li>
         </ul>
@@ -73,7 +84,7 @@
         <div class="container" id="main">
           <div class="row justify-content-center align-items-center mt-4">
             <div class="col-lg-6 col-lg-offset-4">
-              <form id="form-action">
+              <form>
                 <div class="form-group row mb-3">
                   <label for="input-id" class="col-sm-3 col-form-label">Pet ID</label>
                   <div class="col-sm-9">
@@ -120,14 +131,14 @@
                   <div class="col-sm-3">
                     <select class="form-control" id="input-breed">
                       <option>Select Breed</option>
-                      <option>Tabby</option>
-                      <option>Domestic Medium Hair</option>
-                      <option>Mixed Breed</option>
-                      <option>Domestic Short Hair</option>
-                      <option>Terrier</option>
-                      <option>Greyhound</option>
-                      <option>Persian</option>
-                      <option>Rottweiler</option>
+                      <!-- <option>Tabby</option>
+										<option>Domestic Medium Hair</option>
+										<option>Mixed Breed</option>
+										<option>Domestic Short Hair</option>
+										<option>Terrier</option>
+										<option>Greyhound</option>
+										<option>Persian</option>
+										<option>Rottweiler</option> -->
                     </select>
                   </div>
                 </div>
@@ -185,14 +196,7 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script>
-      // Toggle class active when click on navbar
-      const sidebarTitleEl = document.getElementById("sidebar-title");
-      const sidebarEl = document.getElementById("sidebar");
-      sidebarTitleEl.addEventListener("click", function () {
-        sidebarEl.classList.toggle("active");
-      });
-    </script>
+    <script src="./script/storage.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
