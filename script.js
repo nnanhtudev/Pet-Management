@@ -30,9 +30,38 @@ const petArr = [
     sterilized: false,
     date: "2023-09-29T08:53:41.692Z",
   },
+  {
+    id: "2",
+    Name: "Jony",
+    age: "15",
+    type: "Cat",
+    weight: "5",
+    length: "15",
+    color: "#a83434",
+    breed: "Mixed Breed",
+    vaccinated: true,
+    dewormed: true,
+    sterilized: true,
+    date: "2023-09-29T17:21:16.926Z",
+  },
 ];
 let healthyCheck = false;
-let healthyPetArr = [];
+let healthyPetArr = [
+  {
+    id: "2",
+    Name: "Jony",
+    age: "15",
+    type: "Cat",
+    weight: "5",
+    length: "15",
+    color: "#a83434",
+    breed: "Mixed Breed",
+    vaccinated: true,
+    dewormed: true,
+    sterilized: true,
+    date: "2023-09-29T17:21:16.926Z",
+  },
+];
 let buttonCalculate = false;
 renderFormTable(petArr);
 
@@ -134,7 +163,6 @@ function checkHealthyPet() {
   console.log(healthyCheck);
   clearTable();
   btnShowPetHealthy.textContent = healthyCheck ? "Show All" : "Show Healthy Pet";
-
   if (healthyCheck === true) {
     renderFormTable(healthyPetArr);
     console.log(healthyPetArr);
@@ -174,12 +202,16 @@ function renderFormTable(petArr) {
       <td>${pet.sterilized ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>'}</td>
       <td>${buttonCalculate ? calculateBmiPet(pet).toFixed(2) : "?"}</td>
       <td>${formatDate(pet.date)}</td>
-      <td><button type="button" data-pet-id=${pet.id} class="btn btn-danger">Delete</button></td>`;
+      <td><button type="button" data-pet-id=${pet.id} data-pet-healthy-id=${
+      healthyPetArr.id
+    } class="btn btn-danger">Delete</button></td>`;
     tBody.appendChild(newRow);
     const deleteButton = newRow.querySelector(".btn-danger");
     deleteButton.addEventListener("click", function () {
       const petId = deleteButton.getAttribute("data-pet-id");
+      const healthyPetId = deleteButton.getAttribute("data-pet-healthy-id");
       deletePetById(petId);
+      deletePetById(healthyPetId);
       newRow.remove();
     });
   });
@@ -187,9 +219,10 @@ function renderFormTable(petArr) {
 
 function deletePetById(id) {
   const index = petArr.findIndex((pet) => pet.id === id);
-  if (index !== -1) {
+  const indexHealthyPet = healthyPetArr.findIndex((healthyPet) => healthyPet.id === id);
+  if (index !== -1 && indexHealthyPet) {
     petArr.splice(index, 1);
-    clearTable();
+    healthyPetArr.splice(index, 1);
   } else {
     console.log(`Pet with ID ${id} not found.`);
   }
@@ -207,7 +240,9 @@ btnShowPetHealthy.addEventListener("click", function () {
 
 btnCalculateBMI.addEventListener("click", function () {
   buttonCalculate = !buttonCalculate;
-  clearTable();
-  calculateBmiPet(petArr);
-  renderFormTable(petArr);
+  if (buttonCalculate) {
+    clearTable();
+    calculateBmiPet(petArr);
+    renderFormTable(petArr);
+  }
 });
