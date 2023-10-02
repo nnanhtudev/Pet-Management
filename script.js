@@ -1,4 +1,5 @@
 "use strict";
+
 const inputId = document.getElementById("input-id");
 const inputName = document.getElementById("input-name");
 const inputAge = document.getElementById("input-age");
@@ -14,37 +15,21 @@ const btnSubmit = document.getElementById("submit-btn");
 const btnShowPetHealthy = document.getElementById("healthy-btn");
 const tBody = document.getElementById("tbody");
 const btnCalculateBMI = document.getElementById("btn-calculate-bmi");
+
+//1. Bổ sung Animation cho Sidebar
+const sidebar = document.getElementById("sidebar");
+
 let id, Name, age, type, weight, length, color, breed, vaccinated, dewormed, sterilized, date;
-const petArr = [
-  {
-    id: "1",
-    Name: "Zeri",
-    age: "15",
-    type: "Dog",
-    weight: "3",
-    length: "40",
-    color: "#c83737",
-    breed: "Tabby",
-    vaccinated: true,
-    dewormed: true,
-    sterilized: false,
-    date: "2023-09-29T08:53:41.692Z",
-  },
-  {
-    id: "2",
-    Name: "Jony",
-    age: "15",
-    type: "Cat",
-    weight: "5",
-    length: "15",
-    color: "#a83434",
-    breed: "Mixed Breed",
-    vaccinated: true,
-    dewormed: true,
-    sterilized: true,
-    date: "2023-09-29T17:21:16.926Z",
-  },
-];
+let petArr = [];
+const storedData = getFromStorage("petArr");
+if (storedData) {
+  console.log(storedData);
+  try {
+    petArr = JSON.parse(storedData);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+  }
+}
 let healthyCheck = false;
 let healthyPetArr = [
   {
@@ -101,15 +86,10 @@ function getDataPet() {
   };
 }
 
-function formatDate(date) {
-  if (date instanceof Date && !isNaN(date)) {
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  } else {
-    return "Invalid Date";
-  }
+function formatDate(dateString) {
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  const date = new Date(dateString);
+  return date.toLocaleDateString("vi-VN", options);
 }
 
 function validateFormPet() {
@@ -154,6 +134,8 @@ function validateFormPet() {
   }
   petArr.push(formData);
   clearInput();
+  saveToStorage("petArr", petArr);
+  console.log(saveToStorage(petArr));
   renderFormTable([formData]);
   console.log("petArr", petArr);
 }
@@ -220,11 +202,17 @@ function renderFormTable(petArr) {
 function deletePetById(id) {
   const index = petArr.findIndex((pet) => pet.id === id);
   const indexHealthyPet = healthyPetArr.findIndex((healthyPet) => healthyPet.id === id);
-  if (index !== -1 && indexHealthyPet) {
+  if (index !== -1) {
     petArr.splice(index, 1);
-    healthyPetArr.splice(index, 1);
+    saveToStorage("petArr", petArr);
   } else {
-    console.log(`Pet with ID ${id} not found.`);
+    console.log(`Pet with ID ${id} not found in petArr.`);
+  }
+  if (indexHealthyPet !== -1) {
+    healthyPetArr.splice(indexHealthyPet, 1);
+    saveToStorage("petArr", petArr);
+  } else {
+    console.log(`Pet with ID ${id} not found in healthyPetArr.`);
   }
 }
 function clearTable() {
@@ -244,5 +232,13 @@ btnCalculateBMI.addEventListener("click", function () {
     clearTable();
     calculateBmiPet(petArr);
     renderFormTable(petArr);
+  }
+});
+
+sidebar.addEventListener("click", function () {
+  if (sidebar.classList.contains("active")) {
+    sidebar.classList.remove("active");
+  } else {
+    sidebar.classList.toggle("active");
   }
 });
