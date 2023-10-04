@@ -1,5 +1,5 @@
 "use strict";
-
+import { breedArr, renderBreed } from "./script/breed.js";
 const inputId = document.getElementById("input-id");
 const inputName = document.getElementById("input-name");
 const inputAge = document.getElementById("input-age");
@@ -18,10 +18,11 @@ const btnCalculateBMI = document.getElementById("btn-calculate-bmi");
 
 //1. Bổ sung Animation cho Sidebar
 const sidebar = document.getElementById("sidebar");
-
 let id, Name, age, type, weight, length, color, breed, vaccinated, dewormed, sterilized, date;
+let buttonCalculate = false;
 let petArr = [];
 const storedData = getFromStorage("petArr");
+
 if (storedData) {
   console.log(storedData);
   try {
@@ -30,6 +31,7 @@ if (storedData) {
     console.error("Error parsing JSON:", error);
   }
 }
+
 let healthyCheck = false;
 let healthyPetArr = [
   {
@@ -47,8 +49,6 @@ let healthyPetArr = [
     date: "2023-09-29T17:21:16.926Z",
   },
 ];
-let buttonCalculate = false;
-renderFormTable(petArr);
 
 function calculateBmiPet(pet) {
   if (pet.type === "Dog") {
@@ -62,10 +62,12 @@ function getDataPet() {
   Name = inputName.value;
   age = inputAge.value;
   type = inputType.value;
+  console.log("🚀 ~ file: script.js:68 ~ getDataPet ~ type:", type);
   weight = inputWeight.value;
   length = inputLength.value;
   color = inputColor1.value;
   breed = inputBreed.value;
+  console.log("🚀 ~ file: script.js:73 ~ getDataPet ~ breed:", breed);
   vaccinated = inputVaccinated.checked;
   dewormed = inputDewormed.checked;
   sterilized = inputSterilized.checked;
@@ -143,7 +145,7 @@ function validateFormPet() {
 function checkHealthyPet() {
   healthyCheck = !healthyCheck;
   console.log(healthyCheck);
-  clearTable();
+  clearTable(tBody);
   btnShowPetHealthy.textContent = healthyCheck ? "Show All" : "Show Healthy Pet";
   if (healthyCheck === true) {
     renderFormTable(healthyPetArr);
@@ -165,6 +167,8 @@ function clearInput() {
   inputDewormed.checked = false;
   inputSterilized.checked = false;
 }
+
+window.location.pathname === "./index.html" && renderFormTable(petArr);
 function renderFormTable(petArr) {
   petArr.forEach((pet) => {
     const newRow = document.createElement("tr");
@@ -194,11 +198,9 @@ function renderFormTable(petArr) {
       const healthyPetId = deleteButton.getAttribute("data-pet-healthy-id");
       deletePetById(petId);
       deletePetById(healthyPetId);
-      newRow.remove();
     });
   });
 }
-
 function deletePetById(id) {
   const index = petArr.findIndex((pet) => pet.id === id);
   const indexHealthyPet = healthyPetArr.findIndex((healthyPet) => healthyPet.id === id);
@@ -215,9 +217,10 @@ function deletePetById(id) {
     console.log(`Pet with ID ${id} not found in healthyPetArr.`);
   }
 }
-function clearTable() {
-  tBody.innerHTML = "";
+function clearTable(key) {
+  key.innerHTML = "";
 }
+
 btnSubmit.addEventListener("click", function () {
   validateFormPet();
 });
@@ -229,7 +232,7 @@ btnShowPetHealthy.addEventListener("click", function () {
 btnCalculateBMI.addEventListener("click", function () {
   buttonCalculate = !buttonCalculate;
   if (buttonCalculate) {
-    clearTable();
+    clearTable(tBody);
     calculateBmiPet(petArr);
     renderFormTable(petArr);
   }
@@ -241,4 +244,14 @@ sidebar.addEventListener("click", function () {
   } else {
     sidebar.classList.toggle("active");
   }
+});
+
+inputType.addEventListener("change", function () {
+  // Lọc danh sách Breed theo loại đã chọn
+  const selectedType = inputType.value;
+  const filteredBreedsType = breedArr.filter((breed) => breed.type === selectedType);
+  console.log("🚀 ~ file: script.js:255 ~ filteredBreeds:", selectedType);
+  clearTable(inputBreed);
+  // Gọi hàm renderBreed để hiển thị danh sách Breed tương ứng
+  renderBreed(filteredBreedsType);
 });
