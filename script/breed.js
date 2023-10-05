@@ -1,5 +1,7 @@
 "use strict";
 
+import { getFromStorage } from "./storage.js";
+
 const btnSubmit = document.getElementById("submit-btn");
 const inputName = document.getElementById("input-breed");
 const inputType = document.getElementById("input-type");

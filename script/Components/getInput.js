@@ -1,0 +1,16 @@
+export const inputId = document.getElementById("input-id");
+export const inputName = document.getElementById("input-name");
+export const inputAge = document.getElementById("input-age");
+export const inputType = document.getElementById("input-type");
+export const inputWeight = document.getElementById("input-weight");
+export const inputLength = document.getElementById("input-length");
+export const inputColor1 = document.getElementById("input-color-1");
+export const inputBreed = document.getElementById("input-breed");
+export const inputVaccinated = document.getElementById("input-vaccinated");
+export const inputDewormed = document.getElementById("input-dewormed");
+export const inputSterilized = document.getElementById("input-sterilized");
+export const btnSubmit = document.getElementById("submit-btn");
+export const btnShowPetHealthy = document.getElementById("healthy-btn");
+export const tBody = document.getElementById("tbody");
+export const sidebar = document.getElementById("sidebar");
+export const mainFormTable = document.getElementById("main");
