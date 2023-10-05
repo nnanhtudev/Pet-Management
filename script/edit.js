@@ -5,6 +5,7 @@ import { inputType, inputBreed, btnSubmit } from "./Components/getInput.js";
 import { renderFormTableEdit } from "./Components/renderTable.js";
 import { validateFormEditPet } from "./Components/validPet.js";
 import { petArr } from "../script.js";
+
 renderFormTableEdit(petArr);
 
 inputType.addEventListener("change", function () {
@@ -18,6 +19,5 @@ inputType.addEventListener("change", function () {
 });
 btnSubmit.addEventListener("click", function () {
   console.log("click success");
-  // Thực hiện kiểm tra dữ liệu và lấy dữ liệu từ các trường nhập liệu
   validateFormEditPet();
 });

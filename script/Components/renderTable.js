@@ -39,6 +39,7 @@ export function renderFormTable(petArr) {
       <td>${formatDate(pet.date)}</td>
       <td><button type="button" data-pet-id=${pet.id} class="btn btn-danger" id="btn-button">Delete</button></td>`;
     tBody.appendChild(newRow);
+    // Khac nhau cuc duoi
     const deleteButton = newRow.querySelector(".btn-danger");
     deleteButton.addEventListener("click", function () {
       const petId = deleteButton.getAttribute("data-pet-id");
@@ -72,6 +73,7 @@ export function renderFormTableEdit(getPet) {
       </td>
     `;
     tBody.appendChild(newRow);
+    //khac nhau khac nut edit va delete
     const editButton = newRow.querySelector("#edit-btn-button");
     editButton.addEventListener("click", function () {
       const getId = editButton.getAttribute("data-get-id");
