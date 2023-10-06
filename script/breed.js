@@ -1,18 +1,14 @@
 "use strict";
 
-import { getFromStorage } from "./storage.js";
-
-const btnSubmit = document.getElementById("submit-btn");
-const inputName = document.getElementById("input-breed");
-const inputType = document.getElementById("input-type");
+import { getFromStorage, saveToStorage } from "./storage.js";
+import { inputType, btnSubmit, inputBreed } from "./Components/pet-management/getInput.js";
 
 export let breedArr = [];
-
 /* This code is retrieving the value stored in the "breedArr" key from the storage using the
 `getFromStorage` function. If a value is retrieved successfully, it is logged to the console. Then,
 it tries to parse the retrieved value as JSON and assigns it to the `breedArr` variable. If there is
 an error while parsing the JSON, it is caught and logged to the console. */
-const getBreed = getFromStorage("breedArr");
+let getBreed = getFromStorage("breedArr");
 if (getBreed) {
   console.log("🚀 ~ file: breed.js:12 ~ getBreed:", getBreed);
   try {
@@ -32,7 +28,7 @@ function findEmptyId(breedArr) {
   return breedArr.length + 1;
 }
 function getDataBreed() {
-  let name = inputName.value;
+  let name = inputBreed.value;
   let type = inputType.value;
   const newId = findEmptyId(breedArr);
   return {
@@ -56,7 +52,7 @@ with options based on the breeds in the `breeds` array. */
   });
 }
 function clearInput() {
-  inputName.value = "";
+  inputBreed.value = "";
   inputType.value = "Select Type";
 }
 window.location.pathname === "/page/breed.html" && renderBreedTableIndex(breedArr);
@@ -122,6 +118,11 @@ function validateFormPetal() {
   saveToStorage("breedArr", breedArr);
 }
 
-btnSubmit.addEventListener("click", function () {
-  window.location.pathname === "/page/breed.html" && validateFormPetal();
-});
+if (btnSubmit) {
+  // Sử dụng btnSubmit ở đây chỉ khi nó tồn tại
+  btnSubmit.addEventListener("click", function () {
+    validateFormPetal();
+  });
+} else {
+  console.log("btnSubmit không tồn tại.");
+}

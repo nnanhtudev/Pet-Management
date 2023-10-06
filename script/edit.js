@@ -1,9 +1,9 @@
 "use strict";
 
 import { breedArr, renderBreed } from "./breed.js";
-import { inputType, inputBreed, btnSubmit } from "./Components/getInput.js";
-import { renderFormTableEdit } from "./Components/renderTable.js";
-import { validateFormEditPet } from "./Components/validPet.js";
+import { inputType, inputBreed, btnSubmit } from "./Components/pet-management/getInput.js";
+import { renderFormTableEdit } from "./Components/pet-management/renderTable.js";
+import { validateFormEditPet } from "./Components/pet-management/validPet.js";
 import { petArr } from "../script.js";
 
 renderFormTableEdit(petArr);

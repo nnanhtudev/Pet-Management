@@ -1,10 +1,10 @@
 "use strict";
 import { breedArr, renderBreed } from "./script/breed.js";
-import { validateFormAddPet } from "./script/Components/validPet.js";
-import { inputType, inputBreed } from "./script/Components/getInput.js";
+import { validateFormAddPet } from "./script/Components/pet-management/validPet.js";
+import { inputType, inputBreed } from "./script/Components/pet-management/getInput.js";
 import { getFromStorage, saveToStorage } from "./script/storage.js";
-import { renderFormTable } from "./script/Components/renderTable.js";
-import { btnSubmit, btnShowPetHealthy, tBody } from "./script/Components/getInput.js";
+import { renderFormTable } from "./script/Components/pet-management/renderTable.js";
+import { btnSubmit, btnShowPetHealthy, tBody } from "./script/Components/pet-management/getInput.js";
 import { calculateBmiPet } from "./script/Components/pet-management/calculateBMI.js";
 import { clearTable } from "./script/Components/clearTable.js";
 
@@ -14,7 +14,7 @@ export let petArr = [];
 let healthyCheck = false;
 export let healthyPetArr = [];
 const dataHealthyPetArr = getFromStorage("healthyPetArr");
-const storedData = JSON.parse(getFromStorage("petArr"));
+export const storedData = getFromStorage("petArr");
 if (storedData) {
   console.log("🚀 ~ file: script.js:27 ~ storedData:", storedData);
 
@@ -64,33 +64,39 @@ function checkHealthyPet() {
     renderFormTable(petArr);
   }
 }
-btnSubmit.addEventListener("click", function () {
-  window.location.pathname === "/index.html" && validateFormAddPet();
-});
-btnShowPetHealthy.addEventListener("click", function () {
-  checkHealthyPet();
-});
-btnCalculateBMI.addEventListener("click", function () {
-  buttonCalculate = !buttonCalculate;
-  if (buttonCalculate) {
-    clearTable(tBody);
-    calculateBmiPet(petArr);
-    renderFormTable(petArr);
-  }
-});
+if (btnSubmit) {
+  // Sử dụng btnSubmit ở đây chỉ khi nó tồn tại
+  btnSubmit.addEventListener("click", function () {
+    window.location.pathname === "/index.html" && validateFormAddPet();
+  });
+  btnShowPetHealthy.addEventListener("click", function () {
+    checkHealthyPet();
+  });
+  btnCalculateBMI.addEventListener("click", function () {
+    buttonCalculate = !buttonCalculate;
+    if (buttonCalculate) {
+      clearTable(tBody);
+      calculateBmiPet(petArr);
+      renderFormTable(petArr);
+    }
+  });
+  inputType.addEventListener("change", function () {
+    // Lọc danh sách Breed theo loại đã chọn
+    const selectedType = inputType.value;
+    const filteredBreedsType = breedArr.filter((breed) => breed.type === selectedType);
+    console.log("🚀 ~ file: script.js:255 ~ filteredBreeds:", selectedType);
+    clearTable(inputBreed);
+    // Gọi hàm renderBreed để hiển thị danh sách Breed tương ứng
+    renderBreed(filteredBreedsType);
+  });
+} else {
+  console.log("btnSubmit not is.");
+}
+
 sidebar.addEventListener("click", function () {
   if (sidebar.classList.contains("active")) {
     sidebar.classList.remove("active");
   } else {
     sidebar.classList.toggle("active");
   }
-});
-inputType.addEventListener("change", function () {
-  // Lọc danh sách Breed theo loại đã chọn
-  const selectedType = inputType.value;
-  const filteredBreedsType = breedArr.filter((breed) => breed.type === selectedType);
-  console.log("🚀 ~ file: script.js:255 ~ filteredBreeds:", selectedType);
-  clearTable(inputBreed);
-  // Gọi hàm renderBreed để hiển thị danh sách Breed tương ứng
-  renderBreed(filteredBreedsType);
 });

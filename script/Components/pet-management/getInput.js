@@ -1,5 +1,5 @@
 export const inputId = document.getElementById("input-id");
-export const inputName = document.getElementById("input-name");
+export const inputName = document.querySelector("#input-name");
 export const inputAge = document.getElementById("input-age");
 export const inputType = document.getElementById("input-type");
 export const inputWeight = document.getElementById("input-weight");
@@ -11,6 +11,7 @@ export const inputDewormed = document.getElementById("input-dewormed");
 export const inputSterilized = document.getElementById("input-sterilized");
 export const btnSubmit = document.getElementById("submit-btn");
 export const btnShowPetHealthy = document.getElementById("healthy-btn");
-export const tBody = document.getElementById("tbody");
+export const tBody = document.querySelector("tbody");
 export const sidebar = document.getElementById("sidebar");
 export const mainFormTable = document.getElementById("main");
+export const btnFind = document.querySelector("#find-btn");

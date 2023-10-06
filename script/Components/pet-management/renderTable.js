@@ -1,8 +1,8 @@
-import { buttonCalculate } from "../../script.js";
-import { formatDate } from "./formatDate.js";
+import { buttonCalculate } from "../../../script.js";
+import { formatDate } from "../formatDate.js";
 import { tBody } from "./getInput.js";
-import { calculateBmiPet } from "./pet-management/calculateBMI.js";
-import { deletePetById } from "../../script.js";
+import { calculateBmiPet } from "./calculateBMI.js";
+import { deletePetById } from "../../../script.js";
 import {
   inputId,
   inputName,
@@ -17,6 +17,7 @@ import {
   inputSterilized,
   mainFormTable,
 } from "./getInput.js";
+import { clearTable } from "../clearTable.js";
 
 export function renderFormTable(petArr) {
   petArr.forEach((pet) => {
@@ -96,5 +97,29 @@ export function renderFormTableEdit(getPet) {
         inputId.disabled = true;
       }
     });
+  });
+}
+
+export function renderFormTableSearch(petArr) {
+  // Xóa nội dung hiện tại trong tbody
+  clearTable(tBody);
+  // Hiển thị kết quả tìm kiếm trong tbody
+  petArr.forEach((pet) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${pet.id}</td>
+      <td>${pet.Name}</td>
+      <td>${pet.age}</td>
+      <td>${pet.type}</td>
+      <td>${pet.weight} kg</td>
+      <td>${pet.length} cm</td>
+      <td>${pet.breed}</td>
+      <td><i class="bi bi-square-fill" style="color: ${pet.color}"></i></td>
+      <td>${pet.vaccinated ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>'}</td>
+      <td>${pet.dewormed ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>'}</td>
+      <td>${pet.sterilized ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>'}</td>
+      <td>${formatDate(pet.date)}</td>
+    `;
+    tBody.appendChild(row);
   });
 }

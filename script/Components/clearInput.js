@@ -10,7 +10,7 @@ import {
   inputVaccinated,
   inputDewormed,
   inputSterilized,
-} from "./getInput.js";
+} from "./pet-management/getInput.js";
 
 export function clearInput() {
   inputId.value = "";
