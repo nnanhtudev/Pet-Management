@@ -124,7 +124,7 @@ export function validateFormEditPet() {
 }
 export function checkSearchResults() {
   const idToSearch = inputId.value;
-  const nameToSearch = inputName.value;
+  const nameToSearch = inputName.value.toLowerCase();
   const selectedTypeToSearch = inputType.value;
   const selectedBreedToSearch = inputBreed.value;
   const vaccinatedToSearch = inputVaccinated.checked;
@@ -149,7 +149,7 @@ export function checkSearchResults() {
       searchResults = searchResults.filter((pet) => pet.id.includes(idToSearch));
     }
     if (nameToSearch) {
-      searchResults = searchResults.filter((pet) => pet.Name.includes(nameToSearch));
+      searchResults = searchResults.filter((pet) => pet.Name.toLowerCase().includes(nameToSearch));
     }
     if (selectedTypeToSearch !== "Select Type") {
       searchResults = searchResults.filter((pet) => pet.type === selectedTypeToSearch);
