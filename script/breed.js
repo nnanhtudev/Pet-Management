@@ -55,7 +55,7 @@ function clearInput() {
   inputBreed.value = "";
   inputType.value = "Select Type";
 }
-window.location.pathname === "/page/breed.html" && renderBreedTableIndex(breedArr);
+window.location.pathname === "/Pet-Management/page/breed.html" && renderBreedTableIndex(breedArr);
 
 //renderBreedTableIndex id tbody
 function renderBreedTableIndex(breedArr) {
@@ -110,11 +110,11 @@ function validateFormPetal() {
   breedArr.push(formData);
   clearInput();
   console.log(breedArr);
-  /* The code `window.location.pathname === "/page/breed.html" && renderBreedTableIndex(breedArr);` is
-  checking if the current URL path is "/page/breed.html". If it is, then it calls the
+  /* The code `window.location.pathname === "/Pet-Management/page/breed.html" && renderBreedTableIndex(breedArr);` is
+  checking if the current URL path is "/Pet-Management/page/breed.html". If it is, then it calls the
   `renderBreedTableIndex` function with the `breedArr` array as an argument. This code is
-  conditionally rendering the breed table only on the "/page/breed.html" page. */
-  window.location.pathname === "/page/breed.html" && renderBreedTableIndex(breedArr);
+  conditionally rendering the breed table only on the "/Pet-Management/page/breed.html" page. */
+  window.location.pathname === "/Pet-Management/page/breed.html" && renderBreedTableIndex(breedArr);
   saveToStorage("breedArr", breedArr);
 }
 

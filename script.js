@@ -32,7 +32,7 @@ if (dataHealthyPetArr) {
     console.error("Error parsing JSON:", error);
   }
 }
-window.location.pathname === "/index.html" && renderFormTable(petArr);
+window.location.pathname === "/Pet-Management/index.html" && renderFormTable(petArr);
 export function deletePetById(id) {
   if (confirm("Are you sure you want to delete")) {
     const petIndex = petArr.findIndex((pet) => pet.id === id);
@@ -67,7 +67,7 @@ function checkHealthyPet() {
 if (btnSubmit) {
   // Sử dụng btnSubmit ở đây chỉ khi nó tồn tại
   btnSubmit.addEventListener("click", function () {
-    window.location.pathname === "/index.html" && validateFormAddPet();
+    window.location.pathname === "/Pet-Management/index.html" && validateFormAddPet();
   });
   btnShowPetHealthy.addEventListener("click", function () {
     checkHealthyPet();
